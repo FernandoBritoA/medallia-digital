@@ -3,16 +3,9 @@ module.exports = {
   extends: '@react-native-community',
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/no-shadow': ['error'],
-        'no-shadow': 'off',
-        'no-undef': 'off',
-        'comma-dangle': 'off',
-        semi: 'off'
-      }
-    }
-  ]
+  rules: {
+    semi: 'off',
+    'comma-dangle': ['error', 'never'],
+    'jsx-quotes': ['warn', 'prefer-single']
+  }
 }
