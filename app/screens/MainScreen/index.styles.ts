@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto'
   },
   text: {
+    fontSize: 16,
     color: Colors.DARK_GRAY
   }
 })
