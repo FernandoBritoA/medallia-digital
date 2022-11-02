@@ -29,7 +29,7 @@ const getRemainingCoolDown = (newAction: ConfigT, usedActions: UsedActionsDictio
   const { cool_down } = newAction
   const lastUsed = new Date(storedAction.lastUsed)
 
-  const timeSinceLastUse = differenceInMilliseconds(lastUsed, now)
+  const timeSinceLastUse = differenceInMilliseconds(now, lastUsed)
 
   // Already completed cool down time
   if (timeSinceLastUse >= cool_down) {
@@ -44,7 +44,7 @@ const getNowWithExtraMilliseconds = (milliseconds: number): string => {
   const now = new Date()
   const futureDate = addMilliseconds(now, milliseconds)
 
-  return format(futureDate, 'MMM d, yyyy HH:mm')
+  return format(futureDate, 'MMM d, yyyy HH:mm:ss')
 }
 
 export const getActionError = (newAction: ConfigT, usedActions: UsedActionsDictionary): string => {
