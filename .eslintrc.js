@@ -9,6 +9,7 @@ module.exports = {
     'jsx-quotes': ['warn', 'prefer-single'],
     '@typescript-eslint/no-shadow': ['error'],
     'no-shadow': 'off',
-    'no-undef': 'off'
+    'no-undef': 'off',
+    'no-void': ['error', { allowAsStatement: true }]
   }
 }

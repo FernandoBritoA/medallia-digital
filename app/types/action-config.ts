@@ -16,3 +16,10 @@ export type MobileData = {
   }
   actions: ConfigT[]
 }
+
+export type UsedAction = {
+  id: string
+  lastUsed: Date
+}
+
+export type UsedActionsDictionary = Record<string, UsedAction>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MobileData } from '../../../types/action-config'
-import useActionButton from './use-action-button'
+import useUpdateUsedActions from './use-update-used-actions'
 import { showErrorToast } from '../../../utilities/show-toast'
 
 type ButtonCTA = {
@@ -16,7 +16,9 @@ type ReturnT = {
 }
 
 const useActionSettings = (): ReturnT => {
-  const performAction = useActionButton()
+  const updateUsedActions = useUpdateUsedActions()
+
+  const [isActionButtonLoading, setIsActionButtonLoading] = useState(false)
   const [isButton1Loading, setIsButton1Loading] = useState(false)
   const [isButton2Loading, setIsButton2Loading] = useState(false)
   const [mobileData, setMobileData] = useState<MobileData | null>(null)
@@ -46,15 +48,21 @@ const useActionSettings = (): ReturnT => {
     setIsButton2Loading(false)
   }
 
-  const onActionButtonPress = () => {
+  const onActionButtonPress = async () => {
     if (mobileData) {
-      performAction(mobileData)
+      setIsActionButtonLoading(true)
+      await updateUsedActions(mobileData)
+      setIsActionButtonLoading(false)
     }
   }
 
   const button1Props: ButtonCTA = { isLoading: isButton1Loading, onPress: onButton1Press }
   const button2Props: ButtonCTA = { isLoading: isButton2Loading, onPress: onButton2Press }
-  const actionButtonProps: ButtonCTA = { disabled: !mobileData, onPress: onActionButtonPress }
+  const actionButtonProps: ButtonCTA = {
+    disabled: !mobileData,
+    onPress: onActionButtonPress,
+    isLoading: isActionButtonLoading
+  }
 
   return { button1Props, button2Props, actionButtonProps }
 }
