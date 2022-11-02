@@ -8,9 +8,9 @@ import RootStack from './app/screens/RootStack'
 const App = () => (
   <ActionSheetProvider>
     <>
-      <Toast />
       <StatusBar barStyle='dark-content' backgroundColor={Colors.lighter} />
       <RootStack />
+      <Toast />
     </>
   </ActionSheetProvider>
 )
