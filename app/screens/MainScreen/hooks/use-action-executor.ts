@@ -1,23 +1,23 @@
 import { useNavigation } from '@react-navigation/native'
 import { useActionSheet } from '@expo/react-native-action-sheet'
-import { ConfigT } from '../../../types/action-config'
+import { ActionT } from '../../../types/action-config'
 import { getActionSheetOptions, showAlert } from './helpers'
 import { MainScreenNavigationProp } from '../types'
 import routes from '../../../modules/routes'
 
-type ReturnT = (action: ConfigT) => void
+type ReturnT = (action: ActionT) => void
 
 const useActionExecutor = (): ReturnT => {
   const { showActionSheetWithOptions } = useActionSheet()
   const navigation = useNavigation<MainScreenNavigationProp>()
 
-  const showActionSheet = (config: ConfigT) => {
+  const showActionSheet = (config: ActionT) => {
     const options = getActionSheetOptions(config)
 
     showActionSheetWithOptions(options, () => {})
   }
 
-  return (action: ConfigT) => {
+  return (action: ActionT) => {
     switch (action.type) {
       case 'screen':
         return navigation.navigate(routes.InformativeScreen, {

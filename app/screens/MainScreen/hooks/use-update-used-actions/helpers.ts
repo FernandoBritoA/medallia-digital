@@ -1,10 +1,42 @@
 import { getDay, differenceInMilliseconds, addMilliseconds, format } from 'date-fns'
-import { ConfigT, UsedActionsDictionary } from '../../../../types/action-config'
+import { ActionT, AvailableConfigs, UsedActionsDictionary } from '../../../../types/action-config'
 
-export const getRandomAction = (actions: ConfigT[]): ConfigT => {
-  const randomIndex = Math.floor(Math.random() * actions.length)
+const generateRandomIndex = (arrLength: number) => Math.floor(Math.random() * arrLength)
 
-  return actions[randomIndex]
+export const getActionByPriority = (availableConfigs: AvailableConfigs): ActionT => {
+  const configsAsArray = Object.values(availableConfigs)
+  const actionsLength = configsAsArray[0].actions.length
+
+  const randomIndex = generateRandomIndex(actionsLength)
+
+  // We set the first config action at the given index as initial value
+  let selectedAction = configsAsArray[0].actions[randomIndex]
+
+  configsAsArray.forEach((config, index) => {
+    const currentIterationAction = config.actions[randomIndex]
+    const isFirstIteration = index === 0
+
+    // First iteration action is the default value
+    if (isFirstIteration) {
+      return
+    }
+
+    // Current iteration action has a higher priority
+    if (currentIterationAction.priority > selectedAction.priority) {
+      selectedAction = currentIterationAction
+      return
+    }
+
+    // Both actions have the same priority, so we choose one at random.
+    // Returns 0 or 1 randomly
+    const randomIndexOfTwoElements = generateRandomIndex(2)
+
+    if (randomIndexOfTwoElements === 1) {
+      selectedAction = currentIterationAction
+    }
+  })
+
+  return selectedAction
 }
 
 const getTodayIsValidDay = (validDays: number[]): boolean => {
@@ -17,7 +49,7 @@ const getTodayIsValidDay = (validDays: number[]): boolean => {
   return validDays.includes(today)
 }
 
-const getRemainingCoolDown = (newAction: ConfigT, usedActions: UsedActionsDictionary): number => {
+const getRemainingCoolDown = (newAction: ActionT, usedActions: UsedActionsDictionary): number => {
   const storedAction = usedActions[newAction.id]
 
   // The action has not been used yet so it has no cool-down time
@@ -47,7 +79,7 @@ const getNowWithExtraMilliseconds = (milliseconds: number): string => {
   return format(futureDate, 'MMM d, yyyy HH:mm:ss')
 }
 
-export const getActionError = (newAction: ConfigT, usedActions: UsedActionsDictionary): string => {
+export const getActionError = (newAction: ActionT, usedActions: UsedActionsDictionary): string => {
   const actionTitle = newAction.text
 
   if (!newAction.enabled) {

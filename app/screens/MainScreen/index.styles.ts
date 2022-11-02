@@ -14,10 +14,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: Colors.DARK_GRAY
-  },
-  purpleText: {
-    fontWeight: '600',
-    color: Colors.PURPLE
   }
 })
 

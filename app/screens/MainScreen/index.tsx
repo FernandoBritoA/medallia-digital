@@ -6,7 +6,7 @@ import generalStyles from '../../styles/general-styles'
 import styles from './index.styles'
 
 const MainScreen: React.FC = () => {
-  const { selectedConfig, button1Props, button2Props, actionButtonProps } = useActionSettings()
+  const { button1Props, button2Props, actionButtonProps } = useActionSettings()
 
   return (
     <SafeAreaView style={generalStyles.flex}>
@@ -27,9 +27,6 @@ const MainScreen: React.FC = () => {
           type='config-selection'
           style={styles.smallBottomSpace}
         />
-        <Text style={styles.text}>
-          Current selection: <Text style={styles.purpleText}>{selectedConfig}</Text>
-        </Text>
         <Button {...actionButtonProps} text='ACTION' type='action' style={styles.autoMarginTop} />
       </View>
     </SafeAreaView>

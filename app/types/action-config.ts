@@ -1,4 +1,4 @@
-export type ConfigT = {
+export type ActionT = {
   id: string
   type: 'screen' | 'alert' | 'alertSheet'
   enabled: boolean
@@ -9,13 +9,16 @@ export type ConfigT = {
   cool_down: number
 }
 
-export type MobileData = {
+export type ConfigT = {
   configurationUUID: {
     url: string
     uuid: string
   }
-  actions: ConfigT[]
+  actions: ActionT[]
 }
+
+export type ConfigNumber = 1 | 2
+export type AvailableConfigs = Record<ConfigNumber, ConfigT> | {}
 
 export type UsedAction = {
   id: string

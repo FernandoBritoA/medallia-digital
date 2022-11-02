@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
-import { MobileData, UsedAction, UsedActionsDictionary } from '../../../../types/action-config'
+import {
+  AvailableConfigs,
+  UsedAction,
+  UsedActionsDictionary
+} from '../../../../types/action-config'
 import { getStorageItem, setStorageItem } from '../../../../utilities/async-storage'
 import { showErrorToast } from '../../../../utilities/show-toast'
 import useActionExecutor from '../use-action-executor'
-import { getActionError, getRandomAction } from './helpers'
+import { getActionByPriority, getActionError } from './helpers'
 
-type ReturnT = (mobileData: MobileData) => Promise<void>
+type ReturnT = (availableConfigs: AvailableConfigs) => Promise<void>
 
 const useUpdateUsedActions = (): ReturnT => {
   const executeAction = useActionExecutor()
@@ -22,8 +26,8 @@ const useUpdateUsedActions = (): ReturnT => {
     void restoreData()
   }, [])
 
-  return async (mobileData: MobileData) => {
-    const newAction = getRandomAction(mobileData.actions)
+  return async (availableConfigs: AvailableConfigs) => {
+    const newAction = getActionByPriority(availableConfigs)
 
     const errorMessage = getActionError(newAction, usedActions)
 
