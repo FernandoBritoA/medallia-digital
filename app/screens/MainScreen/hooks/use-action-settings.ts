@@ -10,6 +10,7 @@ type ButtonCTA = {
 }
 
 type ReturnT = {
+  selectedConfig: string
   button1Props: ButtonCTA
   button2Props: ButtonCTA
   actionButtonProps: ButtonCTA
@@ -18,6 +19,7 @@ type ReturnT = {
 const useActionSettings = (): ReturnT => {
   const updateUsedActions = useUpdateUsedActions()
 
+  const [selectedConfig, setSelectedConfig] = useState('')
   const [isActionButtonLoading, setIsActionButtonLoading] = useState(false)
   const [isButton1Loading, setIsButton1Loading] = useState(false)
   const [isButton2Loading, setIsButton2Loading] = useState(false)
@@ -40,12 +42,16 @@ const useActionSettings = (): ReturnT => {
     setIsButton1Loading(true)
     await fetchDataJSON('mobileData.json')
     setIsButton1Loading(false)
+
+    setSelectedConfig('CONFIGURATION 1')
   }
 
   const onButton2Press = async () => {
     setIsButton2Loading(true)
     await fetchDataJSON('mobileData2.json')
     setIsButton2Loading(false)
+
+    setSelectedConfig('CONFIGURATION 2')
   }
 
   const onActionButtonPress = async () => {
@@ -64,7 +70,7 @@ const useActionSettings = (): ReturnT => {
     isLoading: isActionButtonLoading
   }
 
-  return { button1Props, button2Props, actionButtonProps }
+  return { selectedConfig, button1Props, button2Props, actionButtonProps }
 }
 
 export default useActionSettings
