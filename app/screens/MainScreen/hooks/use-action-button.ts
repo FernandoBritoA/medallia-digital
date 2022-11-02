@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import { ConfigT, MobileData } from '../../../types/action-config'
 import { getActionError, getActionSheetOptions, getRandomAction, showAlert } from './helpers'
+import { showErrorToast } from '../../../utilities/show-toast'
 import { MainScreenNavigationProp } from '../types'
 import routes from '../../../modules/routes'
 
@@ -38,8 +39,7 @@ const useActionButton = (): ReturnT => {
     const errorMessage = getActionError(config)
 
     if (errorMessage) {
-      // TODO: Error handling
-      return
+      return showErrorToast(errorMessage)
     }
 
     performAction(config)

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { MobileData } from '../../../types/action-config'
 import useActionButton from './use-action-button'
+import { showErrorToast } from '../../../utilities/show-toast'
 
 type ButtonCTA = {
   onPress: () => void
@@ -29,7 +30,7 @@ const useActionSettings = (): ReturnT => {
 
       setMobileData(data)
     } catch (e) {
-      // TODO: Error handling
+      showErrorToast('Something happened, please try again.')
     }
   }
 
