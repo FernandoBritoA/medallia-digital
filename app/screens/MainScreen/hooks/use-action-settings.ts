@@ -60,7 +60,7 @@ const useActionSettings = (): ReturnT => {
 
   const onActionButtonPress = async () => {
     setIsActionButtonLoading(true)
-    await updateUsedActions(mobileData)
+    await updateUsedActions(availableConfigs)
     setIsActionButtonLoading(false)
   }
 

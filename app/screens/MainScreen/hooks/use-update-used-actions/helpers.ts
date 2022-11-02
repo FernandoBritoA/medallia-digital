@@ -28,11 +28,13 @@ export const getActionByPriority = (availableConfigs: AvailableConfigs): ActionT
     }
 
     // Both actions have the same priority, so we choose one at random.
-    // Returns 0 or 1 randomly
-    const randomIndexOfTwoElements = generateRandomIndex(2)
+    if (currentIterationAction.priority === selectedAction.priority) {
+      // Returns 0 or 1 randomly
+      const randomIndexOfTwoElements = generateRandomIndex(2)
 
-    if (randomIndexOfTwoElements === 1) {
-      selectedAction = currentIterationAction
+      if (randomIndexOfTwoElements === 1) {
+        selectedAction = currentIterationAction
+      }
     }
   })
 
