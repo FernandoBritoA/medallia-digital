@@ -1,5 +1,6 @@
-import { MobileData } from '../../../types/action-config'
 import { useState } from 'react'
+import { MobileData } from '../../../types/action-config'
+import useActionButton from './use-action-button'
 
 type ButtonCTA = {
   onPress: () => void
@@ -14,6 +15,7 @@ type ReturnT = {
 }
 
 const useActionSettings = (): ReturnT => {
+  const performAction = useActionButton()
   const [isButton1Loading, setIsButton1Loading] = useState(false)
   const [isButton2Loading, setIsButton2Loading] = useState(false)
   const [mobileData, setMobileData] = useState<MobileData | null>(null)
@@ -43,7 +45,11 @@ const useActionSettings = (): ReturnT => {
     setIsButton2Loading(false)
   }
 
-  const onActionButtonPress = () => {}
+  const onActionButtonPress = () => {
+    if (mobileData) {
+      performAction(mobileData)
+    }
+  }
 
   const button1Props: ButtonCTA = { isLoading: isButton1Loading, onPress: onButton1Press }
   const button2Props: ButtonCTA = { isLoading: isButton2Loading, onPress: onButton2Press }

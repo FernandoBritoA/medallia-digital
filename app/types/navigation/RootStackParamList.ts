@@ -2,5 +2,5 @@ import routes from '../../modules/routes'
 
 export type RootStackParamList = {
   [routes.MainScreen]: undefined
-  [routes.InformativeScreen]: undefined
+  [routes.InformativeScreen]: { title: string; body: string }
 }
