@@ -19,7 +19,7 @@ type ReturnT = {
 const useActionSettings = (): ReturnT => {
   const updateUsedActions = useUpdateUsedActions()
 
-  const [selectedConfig, setSelectedConfig] = useState('')
+  const [selectedConfig, setSelectedConfig] = useState('NONE')
   const [isActionButtonLoading, setIsActionButtonLoading] = useState(false)
   const [isButton1Loading, setIsButton1Loading] = useState(false)
   const [isButton2Loading, setIsButton2Loading] = useState(false)
